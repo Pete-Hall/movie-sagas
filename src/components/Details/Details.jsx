@@ -6,7 +6,7 @@ function Details() {
 
     const dispatch = useDispatch();
     const history = useHistory();
-    const movies = useSelector(store => store.movies);
+    const specificMovie = useSelector(store => store.specificMovie);
   
     const goBack = () => {
       console.log('in goBack');
@@ -19,6 +19,10 @@ function Details() {
       <div>
         <h3>Details</h3>
         <button onClick={goBack}>Go back</button>
+        {/* <p>{JSON.stringify(specificMovie)}</p> */}
+        <h3>{specificMovie[0].title}</h3>
+        <img src={specificMovie[0].poster} />
+        <p>{specificMovie[0].description}</p>
       </div>
     );
 }

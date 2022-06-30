@@ -54,9 +54,10 @@ const movies = (state = [], action) => {
 }
 
 // Used to store specific move info returned from the server
-const specificMovie = (state = [], action) => {
+const specificMovie = (state = ['placeholder'], action) => { // added a placeholder state because I was getting a type error (could not read properties of undefined) when clicking on a movie
     if(action.type === 'SPECIFIC_MOVIE') {
-        return action.payload;
+        state = action.payload; // overwrite the current state. 
+        return state;
     } else {
         return state;
     }
@@ -77,6 +78,7 @@ const storeInstance = createStore(
     combineReducers({
         movies,
         genres,
+        specificMovie
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),
