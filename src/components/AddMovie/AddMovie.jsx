@@ -9,16 +9,21 @@ function AddMovie() {
     const history = useHistory();
     const genres = useSelector(store => store.genres)
 
-    let [description, setDescription] = useState('');
-    let [title, setTitle] = useState('');
-    let [poster, setPoster] = useState('');
-
     useEffect(() => {
       dispatch({ type: 'GET_GENRES' });
     }, []);
 
+    let [description, setDescription] = useState('');
+    let [genre_id, setGenre_id] = useState('1'); // I want this to be the id of the first genre from the database vs hard coding it
+    let [title, setTitle] = useState('');
+    let [poster, setPoster] = useState('');
+
     const changeDescription = (e) => {
       setDescription(e.target.value);
+    }
+
+    const changeGenre = (e) => {
+      setGenre_id(e.target.value);
     }
 
     const changeTitle = (e) => {
@@ -38,14 +43,15 @@ function AddMovie() {
       let newMovie = {
         title,
         poster,
-        description
+        description,
+        genre_id
       };
       console.log('in saveMovie:', newMovie);
+      dispatch({type: 'SAVE_MOVIE', payload: newMovie});
     }
     
     // TODO
-    // get call to add genres to dropdown (map through them)
-    // look at notes on how to capture dropdown selections
+    // look at notes on how to capture dropdown selections and useState
     // look at notes on how to clear inputs
 
     return (
@@ -57,9 +63,9 @@ function AddMovie() {
         <br/>
         <textarea onChange={changeDescription} placeholder="Movie Description"/>
         <br/>
-        <select>
+        <select onChange={changeGenre}>
           {genres.map(genre => (
-            <option key={genre.id}>{genre.name}</option>
+            <option key={genre.id} value={genre.id}>{genre.name}</option>
           ))}
         </select>
         <br/>
