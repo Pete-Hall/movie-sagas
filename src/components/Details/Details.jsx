@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 function Details() {
 
@@ -13,8 +13,19 @@ function Details() {
       history.push('/');
     }
 
+    let { id } = useParams();
+    
+    useEffect(() => {
+      console.log(id);
+      dispatch({type: 'MOVIE_INFO', payload: id});
+    }, []);
+
+    
+    // get call that looks thru the movies with that id. I can access the url param
+
     return (
       <div>
+        <h1>{id}</h1>
         <h3>Details</h3>
         <button onClick={goBack}>Go back</button>
         {/* <p>{JSON.stringify(specificMovie)}</p> */}
