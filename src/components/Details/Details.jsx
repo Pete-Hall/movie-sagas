@@ -22,8 +22,8 @@ function Details() {
         <img src={specificMovie[0].poster} />
         <p>{specificMovie[0].description}</p>
         <h4>Genre(s)</h4>
-        {specificMovie.map(movie => (
-          <p>{movie.name}</p>
+        {specificMovie.map((movie, i )=> (
+          <p key={i}>{movie.name}</p>
         ))}
       </div>
     );
