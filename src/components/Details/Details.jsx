@@ -17,7 +17,7 @@ function Details() {
     
     useEffect(() => {
       console.log(id);
-      dispatch({type: 'MOVIE_INFO', payload: id});
+      dispatch({type: 'MOVIE_INFO', payload: id}); // send a dispatch to the root saga with the id from the params as the payload to start that flow
     }, []);
 
     

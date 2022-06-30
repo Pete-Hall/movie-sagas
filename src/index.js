@@ -30,7 +30,7 @@ function* fetchAllMovies() {
 }
 
 function* getMovie(action) {
-    console.log('in getMovie', action.payload);
+    console.log('in getMovie', action.payload); // action.payload returns the id for the specific movie
     try {
         const response = yield axios.get(`api/movie/details/${action.payload}`);
         console.log('get movie:', response.data);
@@ -54,7 +54,7 @@ const movies = (state = [], action) => {
 }
 
 // Used to store specific move info returned from the server
-const specificMovie = (state = ['placeholder'], action) => { // added a placeholder state because I was getting a type error (could not read properties of undefined) when clicking on a movie. this doesn't seem like the right way to do it :/
+const specificMovie = (state = ['placeholder'], action) => { // added a placeholder state because I was getting a type error (could not read properties of undefined) when clicking on a movie. this doesn't seem like the right way to do it :/. The error I was getting seemed to be a race condition 
     if(action.type === 'SPECIFIC_MOVIE') {
         state = action.payload; // overwrite the current state. 
         return state;
