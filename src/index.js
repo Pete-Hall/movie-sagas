@@ -14,19 +14,30 @@ import axios from 'axios';
 // Create the rootSaga generator function
 function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
+    yield takeEvery('MOVIE_INFO', getMovie);
 }
 
 function* fetchAllMovies() {
     // get all movies from the DB
     try {
-        const movies = yield axios.get('/api/movie');
+        const movies = yield axios.get('/api/movie'); 
         console.log('get all:', movies.data);
         yield put({ type: 'SET_MOVIES', payload: movies.data });
 
     } catch {
         console.log('get all error');
+    }  
+}
+
+function* getMovie(action) {
+    console.log('in getMovie', action.payload);
+    try {
+        const response = yield axios.get(`api/movie/details/${action.payload}`);
+        console.log('get movie:', response.data);
+        yield put({type: 'SPECIFIC_MOVIE', payload: response.data});
+    } catch {
+        console.log('get movie error');
     }
-        
 }
 
 // Create sagaMiddleware
@@ -39,6 +50,15 @@ const movies = (state = [], action) => {
             return action.payload;
         default:
             return state;
+    }
+}
+
+// Used to store specific move info returned from the server
+const specificMovie = (state = [], action) => {
+    if(action.type === 'SPECIFIC_MOVIE') {
+        return action.payload;
+    } else {
+        return state;
     }
 }
 

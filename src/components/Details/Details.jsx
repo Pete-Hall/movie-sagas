@@ -13,6 +13,7 @@ function Details() {
       history.push('/');
     }
 
+    // need to useSelector to show the current movie and can use that data here
 
     return (
       <div>

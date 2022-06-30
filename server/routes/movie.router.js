@@ -18,10 +18,14 @@ router.get('/', (req, res) => {
 
 router.get('/details/:id', (req, res) => {
   console.log(req.params);
-  // const queryString = ``;
-  // pool.query(queryString).then(result => {
-  //   res.send(result)
-  // })
+  const queryString = `SELECT * FROM movies WHERE id=$1`;
+  const values = [req.params.id];
+  pool.query(queryString, values).then(result => {
+    res.send(result.rows)
+  }).catch(err => {
+    console.log(err);
+    res.sendStatus(500);
+  })
 })
 
 router.post('/', (req, res) => {
