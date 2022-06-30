@@ -13,9 +13,9 @@ function MovieList() {
         dispatch({ type: 'FETCH_MOVIES' });
     }, []);
 
-    const handleClick = () => {
-        console.log('in handleClick:');
-        history.push('/details');
+    const handleClick = (arg) => {
+        console.log('in handleClick:', arg);
+        // history.push(`/details`);
     }
 
     // on click, history.push to go to /details/:id (i think?) GET call in /details to display the movie info based on the id of the movie clicked 
@@ -27,7 +27,7 @@ function MovieList() {
                     return (
                         <div key={movie.id} >
                             <h3>{movie.title}</h3>
-                            <img src={movie.poster} alt={movie.title} onClick={handleClick}/>
+                            <img src={movie.poster} alt={movie.title} onClick={() => handleClick(movie.id)}/>
                         </div>
                     );
                 })}
