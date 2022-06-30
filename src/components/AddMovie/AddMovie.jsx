@@ -49,7 +49,7 @@ function AddMovie() {
       console.log('in saveMovie:', newMovie);
       dispatch({type: 'SAVE_MOVIE', payload: newMovie});
       history.push('/');
-      dispatch({type: 'FETCH_MOVIES'});
+      
     }
     
 
