@@ -20,12 +20,9 @@ function Details() {
       dispatch({type: 'MOVIE_INFO', payload: id}); // send a dispatch to the root saga with the id from the params as the payload to start that flow
     }, []);
 
-    
-    // get call that looks thru the movies with that id. I can access the url param
-
     return (
       <div>
-        <h1>{id}</h1>
+        {/* <h1>{id}</h1> */}
         <h3>Details</h3>
         <button onClick={goBack}>Go back</button>
         {/* <p>{JSON.stringify(specificMovie)}</p> */}

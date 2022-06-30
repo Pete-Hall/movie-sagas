@@ -56,8 +56,8 @@ const movies = (state = [], action) => {
 // Used to store specific move info returned from the server
 const specificMovie = (state = ['placeholder'], action) => { // added a placeholder state because I was getting a type error (could not read properties of undefined) when clicking on a movie. this doesn't seem like the right way to do it :/. The error I was getting seemed to be a race condition 
     if(action.type === 'SPECIFIC_MOVIE') {
-        state = action.payload; // overwrite the current state. 
-        return state;
+        // state = action.payload; // overwrite the current state. 
+        return action.payload;
     } else {
         return state;
     }
