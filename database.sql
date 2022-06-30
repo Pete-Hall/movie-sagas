@@ -86,3 +86,6 @@ VALUES
 SELECT * FROM movies WHERE id=$1
 -- read the details for each movie INCLUDING all the genres (let's join it up)
 SELECT * FROM movies JOIN movies_genres ON movies.id = movies_genres.movie_id JOIN genres ON movies_genres.genre_id = genres.id WHERE movies.id=$1;
+-- to delete from the tables (need to delete from the junction table first)
+DELETE FROM movies_genres WHERE movies_genres.movie_id=15;
+DELETE FROM movies WHERE id=15;

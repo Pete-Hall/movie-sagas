@@ -35,7 +35,7 @@ function AddMovie() {
     }
 
     const goBack = () => {
-      console.log('in goBack');
+      // console.log('in goBack');
       history.push('/');
     }
 
@@ -48,11 +48,10 @@ function AddMovie() {
       };
       console.log('in saveMovie:', newMovie);
       dispatch({type: 'SAVE_MOVIE', payload: newMovie});
+      history.push('/');
+      dispatch({type: 'FETCH_MOVIES'});
     }
     
-    // TODO
-    // look at notes on how to capture dropdown selections and useState
-    // look at notes on how to clear inputs
 
     return (
       <div>

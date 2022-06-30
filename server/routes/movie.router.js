@@ -39,7 +39,7 @@ router.post('/', (req, res) => {
   // FIRST QUERY MAKES MOVIE
   pool.query(insertMovieQuery, [req.body.title, req.body.poster, req.body.description])
   .then(result => {
-    console.log('New Movie Id:', result.rows[0].id); //ID IS HERE!
+    console.log('New Movie Id:', result.rows[0].id); //ID IS HERE! (but why is the newly created id at the first index? Because when you add something it goes to the top of the database rows?)
     
     const createdMovieId = result.rows[0].id
 

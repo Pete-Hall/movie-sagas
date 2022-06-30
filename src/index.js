@@ -20,10 +20,10 @@ function* rootSaga() {
 }
 
 function* addMovie(action) {
-    console.log(action.payload);
+    console.log('in addMovie:', action.payload);
     try {
         const response = yield axios.post('api/movie', action.payload);
-        console.log(response);
+        console.log('response in addMovie:', response);
     } catch(err) {
         console.log(err);
         alert('error adding movie');
@@ -34,7 +34,7 @@ function* fetchAllMovies() {
     // get all movies from the DB
     try {
         const movies = yield axios.get('/api/movie'); 
-        console.log('get all:', movies.data);
+        console.log('data in fetchAllMovies:', movies.data);
         yield put({ type: 'SET_MOVIES', payload: movies.data });
 
     } catch {
@@ -45,7 +45,7 @@ function* fetchAllMovies() {
 function* getGenres() {
     try {
         const response = yield axios.get('/api/genre');
-        console.log('get all genres:', response.data);
+        console.log('data in getGenres:', response.data);
         yield put({type: 'SET_GENRES', payload: response.data});
     } catch {
         console.log('get genres error');
@@ -56,7 +56,7 @@ function* getMovie(action) {
     console.log('in getMovie', action.payload); // action.payload returns the id for the specific movie
     try {
         const response = yield axios.get(`api/movie/details/${action.payload}`);
-        console.log('get movie:', response.data);
+        console.log('data in getMovie:', response.data);
         yield put({type: 'SPECIFIC_MOVIE', payload: response.data});
     } catch {
         console.log('get movie error');
