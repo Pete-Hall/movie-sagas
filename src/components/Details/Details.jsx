@@ -13,8 +13,6 @@ function Details() {
       history.push('/');
     }
 
-    // need to useSelector to show the current movie and can use that data here
-
     return (
       <div>
         <h3>Details</h3>
@@ -23,6 +21,10 @@ function Details() {
         <h3>{specificMovie[0].title}</h3>
         <img src={specificMovie[0].poster} />
         <p>{specificMovie[0].description}</p>
+        <h4>Genre(s)</h4>
+        {specificMovie.map(movie => (
+          <p>{movie.name}</p>
+        ))}
       </div>
     );
 }

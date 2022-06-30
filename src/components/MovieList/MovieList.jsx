@@ -16,18 +16,11 @@ function MovieList() {
 
     const handleClick = (arg) => {
         console.log('in handleClick:', arg); // how to pass an paramenter in the onClick function https://upmostly.com/tutorials/pass-a-parameter-through-onclick-in-react
-        dispatch({type: 'MOVIE_INFO', payload: arg}); // send this to a normal reducer to save the id?
+        dispatch({type: 'MOVIE_INFO', payload: arg}); // send this to a normal reducer to save the id
         history.push(`/details/${arg}`);
-        // axios.get(`api/movie/details/${arg}`).then((response) => { // this also works for params https://stackoverflow.com/questions/40947650/axios-get-in-url-works-but-with-second-parameter-as-object-it-doesnt
-        //     console.log(response);
-        // }).catch((err) => {
-        //     console.log(err);
-        // })
+        // // this also works for params https://stackoverflow.com/questions/40947650/axios-get-in-url-works-but-with-second-parameter-as-object-it-doesnt
     }
 
-
-
-    // on click, history.push to go to /details/:id (i think?) GET call in /details to display the movie info based on the id of the movie clicked 
     return (
         <main>
             <h1>MovieList</h1>
