@@ -2,8 +2,26 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool')
 
-router.get('/', (req, res) => {
+router.delete('/delete/:id', (req, res) => {
+  console.log(req.params);
+  let queryString = `DELETE FROM movies_genres WHERE movies_genres.movie_id=$1;`;
+  pool.query(queryString, [req.params.id]).then(result => {
+    console.log('deleted movie from junction table');
+    let query = `DELETE FROM movies WHERE id=$1;`;
+    pool.query(query, [req.params.id]).then(result => {
+      console.log('deleted movie from movies table');
+      res.sendStatus(200);
+    }).catch((err) => {
+      console.log(err);
+      res.sendStatus(500);
+    })
+  }).catch((err) => {
+    console.log(err);
+    res.sendStatus(500);
+  })
+})
 
+router.get('/', (req, res) => {
   const query = `SELECT * FROM movies ORDER BY "title" ASC`;
   pool.query(query)
     .then( result => {

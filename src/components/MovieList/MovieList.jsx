@@ -16,11 +16,12 @@ function MovieList() {
 
     const deleteMovie = (arg) => {
         console.log('in deleteMovie:', arg);
+        dispatch({type: 'DELETE_MOVIE_SAGA', payload: arg});
     }
 
     const handleClick = (arg) => { // arg is just a parameter. down below, the movie.id becomes the parameter we're passing in this function
-        console.log('in handleClick:', arg); // how to pass an paramenter in the onClick function https://upmostly.com/tutorials/pass-a-parameter-through-onclick-in-react
-        history.push(`/details/${arg}`); // send us to the details page for the specific movie we clicked on
+        console.log('in handleClick:', arg); // how to pass an paramenter in the onClick function https://upmostly.com/tutorials/pass-a-parameter-through-onclick-in-react. on the click , it returns a call to the handleClick function
+        history.push(`/details/${arg}`); // send us to the details page for the specific movie we clicked on.
         // this also works for params https://stackoverflow.com/questions/40947650/axios-get-in-url-works-but-with-second-parameter-as-object-it-doesnt
     }
 

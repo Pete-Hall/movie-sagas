@@ -17,6 +17,7 @@ function* rootSaga() {
     yield takeEvery('MOVIE_INFO', getMovie);
     yield takeEvery('GET_GENRES', getGenres);
     yield takeEvery('SAVE_MOVIE', addMovie);
+    yield takeEvery('DELETE_MOVIE_SAGA', deleteMovieSaga)
 }
 
 function* addMovie(action) {
@@ -31,6 +32,18 @@ function* addMovie(action) {
     }
 }
 
+function* deleteMovieSaga(action) {
+    console.log('in deleteMovieSaga:', action.payload);
+    try {
+        const response = yield axios.delete(`api/movie/delete/${action.payload}`);
+        console.log(response);
+        yield put({type: 'FETCH_MOVIES'});
+    } catch(err) {
+        console.log(err);
+        alert('error deleting movie');
+    }
+}
+
 function* fetchAllMovies() {
     // get all movies from the DB
     try {
@@ -38,8 +51,9 @@ function* fetchAllMovies() {
         console.log('data in fetchAllMovies:', movies.data);
         yield put({ type: 'SET_MOVIES', payload: movies.data });
 
-    } catch {
-        console.log('get all error');
+    } catch(err) {
+        console.log(err);
+        alert('get all error');
     }  
 }
 
@@ -48,8 +62,9 @@ function* getGenres() {
         const response = yield axios.get('/api/genre');
         console.log('data in getGenres:', response.data);
         yield put({type: 'SET_GENRES', payload: response.data});
-    } catch {
-        console.log('get genres error');
+    } catch(err) {
+        console.log(err);
+        alert('get genres error');
     }
 }
 
@@ -59,8 +74,9 @@ function* getMovie(action) {
         const response = yield axios.get(`api/movie/details/${action.payload}`);
         console.log('data in getMovie:', response.data);
         yield put({type: 'SPECIFIC_MOVIE', payload: response.data});
-    } catch {
-        console.log('get movie error');
+    } catch(err) {
+        console.log(err);
+        alert('get movie error');
     }
 }
 
