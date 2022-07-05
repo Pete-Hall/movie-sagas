@@ -20,7 +20,7 @@ function Details() {
       dispatch({type: 'MOVIE_INFO', payload: id}); // send a dispatch to the root saga with the id from the params as the payload to start that flow
     }, []);
 
-    // it will re-render if any variables change that we're using
+    // the return will re-render if any variables in it change that we're using
     return (
       <div>
         {/* <h1>{id}</h1> */}

@@ -57,6 +57,7 @@ function* fetchAllMovies() {
     }  
 }
 
+// gets all genres from the DB (currently used in AddMovie)
 function* getGenres() {
     try {
         const response = yield axios.get('/api/genre');
@@ -68,12 +69,13 @@ function* getGenres() {
     }
 }
 
+// get specific movie details form the DB to show all info on the clicked movie
 function* getMovie(action) {
     console.log('in getMovie', action.payload); // action.payload returns the id for the specific movie
     try {
-        const response = yield axios.get(`api/movie/details/${action.payload}`);
+        const response = yield axios.get(`api/movie/details/${action.payload}`); // send the action.payload (id) to the server as req.params
         console.log('data in getMovie:', response.data);
-        yield put({type: 'SPECIFIC_MOVIE', payload: response.data});
+        yield put({type: 'SPECIFIC_MOVIE', payload: response.data}); // send the response from the DB to SPECIFIC_MOVIE aka the function specificMovie
     } catch(err) {
         console.log(err);
         alert('get movie error');
@@ -83,7 +85,7 @@ function* getMovie(action) {
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
 
-// Used to store movies returned from the server
+// Used to store all movies returned from the server
 const movies = (state = [], action) => {
     switch (action.type) {
         case 'SET_MOVIES':
@@ -93,17 +95,16 @@ const movies = (state = [], action) => {
     }
 }
 
-// Used to store specific move info returned from the server
-const specificMovie = (state = [], action) => { // added a placeholder state because I was getting a type error (could not read properties of undefined) when clicking on a movie. this doesn't seem like the right way to do it :/. The error I was getting seemed to be a race condition 
+// Used to store specific movie info returned from the server (details and genres)
+const specificMovie = (state = [], action) => {
     if(action.type === 'SPECIFIC_MOVIE') {
-        // state = action.payload; // overwrite the current state. 
         return action.payload;
     } else {
         return state;
     }
 }
 
-// Used to store the movie genres
+// Used to store the movie genres for the AddMovie dropdown
 const genres = (state = [], action) => {
     switch (action.type) {
         case 'SET_GENRES':

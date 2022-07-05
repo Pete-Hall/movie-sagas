@@ -4,9 +4,11 @@ const pool = require('../modules/pool')
 
 router.delete('/delete/:id', (req, res) => {
   console.log(req.params);
+  // first query deletes the movie from the junction table
   let queryString = `DELETE FROM movies_genres WHERE movies_genres.movie_id=$1;`;
   pool.query(queryString, [req.params.id]).then(result => {
     console.log('deleted movie from junction table');
+    // second query deletes the movie from the movies table
     let query = `DELETE FROM movies WHERE id=$1;`;
     pool.query(query, [req.params.id]).then(result => {
       console.log('deleted movie from movies table');
@@ -21,6 +23,7 @@ router.delete('/delete/:id', (req, res) => {
   })
 })
 
+// get all the movies from the DB
 router.get('/', (req, res) => {
   const query = `SELECT * FROM movies ORDER BY "title" ASC`;
   pool.query(query)
@@ -34,6 +37,7 @@ router.get('/', (req, res) => {
 
 });
 
+// get the movie details and genres from the DB for the movie with a specific id
 router.get('/details/:id', (req, res) => {
   console.log(req.params);
   const queryString = `SELECT * FROM movies JOIN movies_genres ON movies.id = movies_genres.movie_id JOIN genres ON movies_genres.genre_id = genres.id WHERE movies.id=$1;`
@@ -46,6 +50,7 @@ router.get('/details/:id', (req, res) => {
   })
 })
 
+// already here - adds a movie to the DB
 router.post('/', (req, res) => {
   console.log(req.body);
   // RETURNING "id" will give us back the id of the created movie
@@ -57,7 +62,7 @@ router.post('/', (req, res) => {
   // FIRST QUERY MAKES MOVIE
   pool.query(insertMovieQuery, [req.body.title, req.body.poster, req.body.description])
   .then(result => {
-    console.log('New Movie Id:', result.rows[0].id); //ID IS HERE! (but why is the newly created id at the first index? Because when you add something it goes to the top of the database rows?)
+    console.log('New Movie Id:', result.rows[0].id); //ID IS HERE! (but why is the newly created id at the first index? I think it's because when you add something it goes to the top of the database rows)
     
     const createdMovieId = result.rows[0].id
 
