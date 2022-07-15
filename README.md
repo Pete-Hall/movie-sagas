@@ -18,7 +18,7 @@ For this Full Stack project I expanded on a movie management application. Movies
 
 ([Node.js](https://nodejs.org/en/) is used in this project)
 
-To locally run the project...
+To locally run this project...
 
 1. Create a database named `saga_movies_weekend`,
 2. The queries in the `database.sql` file are set up to create all the necessary tables and populate those tables with the data to allow the application to run correctly. The project is built on [Postgres](https://www.postgresql.org/download/), so you will need to make sure to have that installed. Using Postico is recommended to run those queries as that was used to create the queries 
