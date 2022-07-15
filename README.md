@@ -25,7 +25,7 @@ To locally run the project...
 3. Open up your code editor of choice and run `npm install` in your terminal to install the necessary dependencies
 4. Run `npm run server` in your terminal to start up the server
 5. Run `npm run client` in your terminal to start up the client in your browser
-6. The `npm run client` command will open up a new browser tab for you! (if not there will be a localhost link in your termainl you can use)
+6. The `npm run client` command will open up a new browser tab for you! (if not there will be a localhost link in your terminal you can use)
 
 
 ## Built With
